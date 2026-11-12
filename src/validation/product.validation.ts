@@ -20,3 +20,13 @@ export const createProductSchema = z.object({
 }).strict();
 
 export type CreateProductInput = z.infer<typeof createProductSchema>;
+
+export const productIdSchema = z.object({
+    id: z.string()
+        .regex(/^[1-9]\d*$/, 'ID must be a positive integer')
+        .refine(
+            (id) => BigInt(id) <= 9223372036854775807n,
+            'ID exceeds BIGINT range'
+        )
+
+})

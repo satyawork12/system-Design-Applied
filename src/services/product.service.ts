@@ -10,8 +10,11 @@ export class ProductService {
         return products;
     }
 
-    createProducts = async (product : CreateProductInput) =>{
+    createProducts = async (product: CreateProductInput) => {
         return await productRepository.create(product);
+    }
+    getProductId = async (id: string) => {
+        return await productRepository.getProductById(id);
     }
 }
 

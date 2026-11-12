@@ -47,4 +47,35 @@ export class ProductController {
         }
     }
 
+    getProductById = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+
+            if (typeof id !== 'string') {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Invalid product ID'
+                });
+            }
+            const product = await this.productService.getProductId(id);
+
+            if (!product) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Product not found'
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                data: product
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: 'Internal server error'
+            });
+        }
+    };
+
 }
