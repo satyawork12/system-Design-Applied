@@ -1,7 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import {pool} from "./config/database"
-import {productRoutes} from "../src/routes/product.routes"
+import {productRoutes} from "./routes/product.routes"
 dotenv.config({path : ".env.dev"});
 
 
@@ -11,8 +11,8 @@ app.use(express.json());
 const PORT = process.env.PORT;
 
 
-app.get("/health", (req, res) => {
-    const result = pool.query("SELECT NOW()");
+app.get("/health", async(req, res) => {
+    const result = await pool.query("SELECT NOW()");
     res.json({
         "query result" : result,
         "status": "ok",

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ProductController } from "../controllers/product.controller";
+import { validateCreateProduct } from "../middleware/product.validate.middleware";
 
 export class ProductRoutes{
     private router : Router;
@@ -13,6 +14,7 @@ export class ProductRoutes{
 
     private initRoutes():void{
         this.router.get("/",this.productController.getProducts)
+        this.router.post("/",validateCreateProduct,this.productController.createProduct)
     }
 
     getRouter(){
