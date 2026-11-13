@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ProductController } from "../controllers/product.controller";
-import { validateCreateProduct, validateProductId } from "../middleware/product.validate.middleware";
+import { validateCreateProduct, validateProductId, validateProductUpdate } from "../middleware/product.validate.middleware";
 
 export class ProductRoutes{
     private router : Router;
@@ -16,6 +16,7 @@ export class ProductRoutes{
         this.router.get("/",this.productController.getProducts)
         this.router.post("/",validateCreateProduct,this.productController.createProduct)
         this.router.get("/:id",validateProductId,this.productController.getProductById)
+        this.router.patch("/:id",validateProductId,validateProductUpdate,this.productController.updateProduct)
     }
 
     getRouter(){

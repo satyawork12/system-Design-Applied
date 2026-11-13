@@ -1,5 +1,5 @@
 import * as productRepository from '../repositories/product.repository';
-import { CreateProductInput } from '../validation/product.validation';
+import { CreateProductInput, ProductUpdateInput } from '../validation/product.validation';
 
 export class ProductService {
 
@@ -15,6 +15,10 @@ export class ProductService {
     }
     getProductId = async (id: string) => {
         return await productRepository.getProductById(id);
+    }
+
+    updateProduct = async (id: string, product: ProductUpdateInput) => {
+        return await productRepository.updateProduct(id, product);
     }
 }
 

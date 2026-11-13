@@ -1,5 +1,5 @@
 import { pool } from "../config/database"
-import { CreateProductInput } from "../validation/product.validation";
+import { CreateProductInput, ProductUpdateInput } from "../validation/product.validation";
 
 export const findAll = async () => {
     const result = await pool.query(
@@ -19,6 +19,22 @@ export const getProductById = async (id: string) => {
          FROM products
          WHERE id = $1`,
         [id]
+    );
+
+    return result.rows[0] ?? null;
+};
+
+export const updateProduct = async (id: string, product: ProductUpdateInput) => {
+    const fields = Object.keys(product);
+    const values = Object.values(product);
+    const setClause = fields.map((field, index) => `${field} = $${index + 1}`).join(', ');
+
+    const result = await pool.query(
+        `UPDATE products
+         SET ${setClause}
+         WHERE id = $${values.length + 1}
+         RETURNING id, name, description, price, stock_quantity`,
+        [...values, id]
     );
 
     return result.rows[0] ?? null;
