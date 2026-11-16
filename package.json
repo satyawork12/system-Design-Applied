@@ -21,6 +21,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/pg": "^8.23.1"
+    "@types/pg": "^8.23.1",
+    "autocannon": "^9.0.0"
   }
 }
