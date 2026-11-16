@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import {pool} from "./config/database"
 import {productRoutes} from "./routes/product.routes"
+import { orderRoutes } from "./routes/order.routes";
 dotenv.config({path : ".env.dev"});
 
 
@@ -20,6 +21,7 @@ app.get("/health", async(req, res) => {
     })
 })
 app.use("/products",productRoutes.getRouter())
+app.use("/order",orderRoutes.getRouter())
 
 app.listen(PORT, () => {
     console.log(`server is listening on port ${PORT}`)

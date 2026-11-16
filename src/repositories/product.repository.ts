@@ -1,3 +1,4 @@
+import { Pool, PoolClient } from "pg";
 import { pool } from "../config/database"
 import { CreateProductInput, ProductUpdateInput } from "../validation/product.validation";
 
@@ -23,6 +24,12 @@ export const getProductById = async (id: string) => {
 
     return result.rows[0] ?? null;
 };
+
+export const getProductByIds = async (ids: string[], client: Pool | PoolClient = pool)=>{
+    const placeholders = ids.map((_,index)=> `$${index+1}`)
+    const result = await client.query(`SELECT id, price FROM products WHERE id in (${placeholders.join(", ")})`,ids);
+    return result.rows;
+}
 
 export const updateProduct = async (id: string, product: ProductUpdateInput) => {
     const fields = Object.keys(product);
