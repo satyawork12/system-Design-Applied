@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx src/server.ts"
+    "dev": "tsx src/server.ts",
+    "dev:server1": "cross-env PORT=3001 INSTANCE_ID=server1 tsx src/server.ts",
+    "dev:server2": "cross-env PORT=3002 INSTANCE_ID=server2 tsx src/server.ts",
+    "dev:server3": "cross-env PORT=3003 INSTANCE_ID=server3 tsx src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "@types/pg": "^8.23.1",
-    "autocannon": "^9.0.0"
+    "autocannon": "^9.0.0",
+    "cross-env": "^10.1.0"
   }
 }

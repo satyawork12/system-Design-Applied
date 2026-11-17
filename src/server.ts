@@ -9,7 +9,7 @@ dotenv.config({path : ".env.dev"});
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 
 app.get("/health", async(req, res) => {
@@ -25,4 +25,5 @@ app.use("/order",orderRoutes.getRouter())
 
 app.listen(PORT, () => {
     console.log(`server is listening on port ${PORT}`)
+    console.log(`Instance is running in ${process.env.INSTANCE_ID}`)
 })
